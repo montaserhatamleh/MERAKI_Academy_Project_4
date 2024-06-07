@@ -1,4 +1,6 @@
 const userModel = require("../models/users");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const register = (req, res) => {
   const {
@@ -21,7 +23,7 @@ const register = (req, res) => {
     Country,
     gender,
     birthDate,
-    role: "6662f5538af98d42b47e0860",
+    role: "66633e340629bd900ac51ab2",
   });
   newUser
     .save()
@@ -33,8 +35,7 @@ const register = (req, res) => {
       });
     })
     .catch((err) => {
-
-   if (!err.email) {
+      if (!err.email) {
         return res.status(409).json({
           success: false,
           message: `The email already exists`,
@@ -48,9 +49,57 @@ const register = (req, res) => {
     });
 };
 
-const login = (req, res) => {};
-
-module.exports = {
-  register,
-  login,
+const login = (req, res) => {
+  const password = req.body.password;
+  const email = req.body.email.toLowerCase();
+  userModel
+    .findOne({ email })
+    .populate("role", "-_id -__v")
+    .then(async (result) => {
+      if (!result) {
+        return res.status(403).json({
+          success: false,
+          message: `The email doesn't exist or The password you’ve entered is incorrect`,
+        });
+      }
+      try {
+        const isValid = await bcrypt.compare(password, result.password);
+        if (!isValid) {
+          return res.status(403).json({
+            success: false,
+            message: `The email doesn't exist or The password you’ve entered is incorrect`,
+          });
+        }
+        const payload = {
+          userId: result._id,
+          userName: result.userName,
+          role: result.role,
+        };
+        const options = {
+          expiresIn: "300m",
+        };
+        const token = jwt.sign(payload, process.env.SECRET, options);
+        res.status(200).json({
+          success: true,
+          message: `Valid login credentials`,
+          token: token,
+        });
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: `Server Error`,
+        err: err.message,
+      });
+    });
 };
+  
+  module.exports = {
+    register,
+    login,
+  };
+  
+ 
