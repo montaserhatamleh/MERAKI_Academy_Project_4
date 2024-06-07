@@ -11,5 +11,8 @@ const user = new mongoose.Schema({
   gender: { type: String },
   birthDate: { type: Date },
 });
-
+user.pre("save", async function () {
+  this.password = await bcrypt.hash(this.password, 10);
+  this.email = this.email.toLowerCase();
+});
 module.exports = mongoose.model("User", user);
