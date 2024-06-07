@@ -9,7 +9,7 @@ const user = new mongoose.Schema({
   role: { type: mongoose.Schema.Types.ObjectId, ref: "Role" },
   Country: { type: String },
   gender: { type: String },
-  birthDate: { type: Date },
+  birthDate: { type: Date, default: Date.now, index: true },
 });
 user.pre("save", async function () {
   this.password = await bcrypt.hash(this.password, 10);
