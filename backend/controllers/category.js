@@ -1,3 +1,4 @@
+const { json } = require("express");
 const categoryModel = require("../models/category");
 
 const cerateCategory = (req, res) => {
@@ -29,7 +30,24 @@ const cerateCategory = (req, res) => {
       });
     });
 };
-const getCategory = (req, res) => {};
+const getCategory = (req, res) => {
+  categoryModel
+    .find({})
+    .then((result) => {
+      res.status(201).json({
+        success: true,
+        message: `All Category`,
+        category: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: `Server Error`,
+        err: err.message,
+      });
+    });
+};
 
 module.exports = {
   cerateCategory,
