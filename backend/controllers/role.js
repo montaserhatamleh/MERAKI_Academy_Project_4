@@ -2,8 +2,8 @@ const roleModel = require("../models/role");
 
 const createRole = (req, res) => {
   const { role, permission } = req.body;
-  const newUser = new roleModel({ role, permission });
-    newUser
+  const newRole = new roleModel({ role, permission });
+  newRole
     .save()
     .then((result) => {
       res.status(201).json({
@@ -20,9 +20,7 @@ const createRole = (req, res) => {
       });
     });
 };
-const getAllRole = (req, res) => {};
 
 module.exports = {
   createRole,
-  getAllRole,
 };
