@@ -3,7 +3,7 @@ const { cerateCategory, getCategory } = require("../controllers/category");
 
 const categoryRouter = express();
 
-categoryRouter.post("/cerateCategory");
-categoryRouter.get("/getCategory");
+categoryRouter.post("/cerate");
+categoryRouter.get("/");
 
 module.exports = categoryRouter;

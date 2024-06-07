@@ -5,8 +5,8 @@ const CreateJob = new mongoose.Schema({
   pay: { type: Number, required: true },
   location: { type: String, required: true },
   Description: { type: String },
-  Company: { id },
-  apple: { id },
+  Company: {},
+  apple: {},
   date: { type: Date },
 });
  module.exports = mongoose.model("CreateJob", CreateJob);

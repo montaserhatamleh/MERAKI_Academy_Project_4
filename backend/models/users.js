@@ -5,11 +5,11 @@ const user = new mongoose.Schema({
   email: { type: String, unique: true },
   password: { type: String, required: true },
   phoneNumber: { type: Number },
-  profile: { URL },
+  profile: {},
   role: {},
   Country: { type: String },
   gender: { type: String },
   birthDate: { type: Date },
 });
 
-module.exports = mongoose.module("User", user);
+module.exports = mongoose.model("User", user);

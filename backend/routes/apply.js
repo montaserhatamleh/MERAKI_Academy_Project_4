@@ -3,7 +3,7 @@ const { createApply, getApply } = require("../controllers/apply");
 
 const applyRouter = express();
 
-applyRouter.post("/createApply", createApply);
-applyRouter.get("/getAllApply", getApply);
+applyRouter.post("/create", createApply);
+applyRouter.get("/", getApply);
 
 module.exports = applyRouter;

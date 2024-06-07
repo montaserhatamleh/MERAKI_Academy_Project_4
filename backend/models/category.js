@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const category = new mongoose.schema({
+const category = new mongoose.Schema({
   categoryName: { type: String },
   categoryJob: {},
   img: { type: String },
