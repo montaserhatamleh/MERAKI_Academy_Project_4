@@ -4,8 +4,6 @@ const applyModel = require("../models/Apply");
 const createApply = (req, res) => {
   const { experience, cv, createdAt } = req.body;
   const createdBy = req.token.userId;
-  console.log("hii");
-  console.log(req.token);
   const appliers = new applyModel({
     experience,
     cv,

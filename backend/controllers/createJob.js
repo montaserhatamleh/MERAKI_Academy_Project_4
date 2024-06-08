@@ -5,7 +5,7 @@ const createJobModel = require("../models/CreateJob");
 //appliers for CV owner
 const createJob = (req, res) => {
   const { jonTitle, salaryRange, location, description } = req.body;
-  const  createdBy  = req.token.userId;
+  const createdBy = req.token.userId;
   console.log(req.token);
   const JobApplication = new createJobModel({
     jonTitle,
@@ -49,33 +49,58 @@ const getAllJob = (req, res) => {
       });
     });
 };
-// to Modify job
+// to push applier to Job Application
 const updateJob = (req, res) => {
   const id = req.params.id;
   createJobModel
-  .findByIdAndUpdate(
-    { _id: id },
-    { $push: { appliers: req.token.userId } },
-    { new: true }
-  )
-  
-  .then(() => {
-    res.status(201).json({
-      success: true,
-      message: `Applier added`,
-      appliers: result,
+    .findByIdAndUpdate(
+      { _id: id },
+      { $push: { appliers: req.token.userId } },
+      { new: true }
+    )
+
+    .then((result) => {
+      res.status(201).json({
+        success: true,
+        message: `Applier added`,
+        appliers: result,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        success: false,
+        message: `Server Error`,
+        err: err.message,
+      });
     });
-  })
-  .catch((err) => {
-    res.status(500).json({
-      success: false,
-      message: `Server Error`,
-      err: err.message,
-    });
-  });
 };
 // to delete my job
-const deleteJob = (req, res) => {};
+const deleteJob = (req, res) => {
+  const JobApplication = req.params.id;
+  createJobModel
+    .deleteMany({ JobApplication })
+    .then((result) => {
+      if (!result.deletedCount) {
+        return res.status(404).json({
+          success: false,
+          message: `The applier not found`,
+        });
+      }
+      res.status(200).json({
+        success: true,
+        message: `Delete Job Application ${JobApplication}`,
+        deleted: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: `Server Error`,
+        err: err.message,
+      });
+    });
+};
 
 module.exports = {
   createJob,
