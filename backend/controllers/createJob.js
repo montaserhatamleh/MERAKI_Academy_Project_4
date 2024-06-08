@@ -5,7 +5,8 @@ const createJobModel = require("../models/CreateJob");
 //appliers for CV owner
 const createJob = (req, res) => {
   const { jonTitle, salaryRange, location, description } = req.body;
-  const { createdBy } = req.token.userId;
+  const  createdBy  = req.token.userId;
+  console.log(req.token);
   const JobApplication = new createJobModel({
     jonTitle,
     salaryRange,
@@ -54,7 +55,7 @@ const updateJob = (req, res) => {
   createJobModel
   .findByIdAndUpdate(
     { _id: id },
-    { $push: { appliers: userId } },
+    { $push: { appliers: req.token.userId } },
     { new: true }
   )
   
