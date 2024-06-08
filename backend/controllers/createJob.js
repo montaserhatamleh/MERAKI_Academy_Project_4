@@ -50,7 +50,28 @@ const getAllJob = (req, res) => {
 };
 // to Modify job
 const updateJob = (req, res) => {
+  const id = req.params.id;
+  createJobModel
+  .findByIdAndUpdate(
+    { _id: id },
+    { $push: { appliers: userId } },
+    { new: true }
+  )
   
+  .then(() => {
+    res.status(201).json({
+      success: true,
+      message: `Applier added`,
+      appliers: result,
+    });
+  })
+  .catch((err) => {
+    res.status(500).json({
+      success: false,
+      message: `Server Error`,
+      err: err.message,
+    });
+  });
 };
 // to delete my job
 const deleteJob = (req, res) => {};
