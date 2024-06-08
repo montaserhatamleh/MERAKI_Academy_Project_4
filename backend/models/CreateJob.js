@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 
-const CreateJob = new mongoose.Schema({
+const JobApplication = new mongoose.Schema({
   jonTitle: { type: String, required: true },
-  pay: { type: Number, required: true },
+  salaryRange: { type: Number, required: true },
   location: { type: String, required: true },
-  Description: { type: String },
-  Company: {},
-  apple: {},
-  date: { type: Date },
+  description: { type: String },
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref:"User"},
+  appliers: [{ type: mongoose.Schema.Types.ObjectId,ref:"Apply"}],
+  ceratedAt: { type: Date, default: Date.now, index: true  },
 });
- module.exports = mongoose.model("CreateJob", CreateJob);
+module.exports = mongoose.model("JobApplication", JobApplication);

@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
-const apply = new mongoose.Schema({
+const JobApplicationReplies = new mongoose.Schema({
   experience: { type: String, require: true },
-  employee: { },
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   cv: { type: String, required: true },
-  date: { type: Date },
+  createdAt: { type: Date, default: Date.now, index: true },
 });
 
-module.exports = mongoose.model("Apply", apply);
+module.exports = mongoose.model("Apply", JobApplicationReplies);

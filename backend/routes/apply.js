@@ -1,9 +1,10 @@
 const express = require("express");
 const { createApply, getApply } = require("../controllers/apply");
 
-const applyRouter = express();
+const applyRouter = express.Router();
+const authentication = require("../middleware/authentication");
 
-applyRouter.post("/create", createApply);
+applyRouter.post("/create",authentication, createApply);
 applyRouter.get("/", getApply);
 
 module.exports = applyRouter;
