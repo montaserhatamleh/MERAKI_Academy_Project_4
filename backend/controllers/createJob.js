@@ -51,7 +51,6 @@ const getAllJob = (req, res) => {
 // to get all employee // appliers
 const getApplierById = (req, res) => {
   const userId = req.token.userId;
-
   createJobModel
     .find({ appliers: userId })
     .then((result) => {
@@ -88,7 +87,7 @@ const getAllJobsIApplyFor = (req, res) => {
       });
     });
 };
-
+//
 const updateJob = (req, res) => {
   const id = req.params.id;
   createJobModel
