@@ -1,8 +1,6 @@
 const { findById } = require("../models/Apply");
 const createJobModel = require("../models/CreateJob");
 
-//to create job
-//createdBy for User
 //appliers for CV owner
 const createJob = (req, res) => {
   const { jonTitle, salaryRange, location, description } = req.body;
@@ -50,11 +48,31 @@ const getAllJob = (req, res) => {
       });
     });
 };
-// to get all employee
+// to get all employee // appliers
 const getApplierById = (req, res) => {
   const userId = req.token.userId;
-  createJobModel;
-  find({ userId: appliers })
+
+  createJobModel
+    .find({ appliers: userId })
+    .then((result) => {
+      console.log(result);
+      res.status(201).json({
+        success: true,
+        message: `Get All Job`,
+        AllJob: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: `Server Error`,
+        err: err.message,
+      });
+    });
+};
+const getAllJobsIApplyFor = (req, res) => {
+  const applier = req.params.userId;
+  findOne({ applier: "appliers" })
     .then((result) => {
       res.status(201).json({
         success: true,
@@ -70,8 +88,7 @@ const getApplierById = (req, res) => {
       });
     });
 };
-const getAllJobsIApplyFor = (req, res) => {};
-// to push applier to Job Application
+
 const updateJob = (req, res) => {
   const id = req.params.id;
   createJobModel
@@ -100,18 +117,17 @@ const updateJob = (req, res) => {
 // to delete my job
 const deleteJob = (req, res) => {
   const JobApplication = req.params.id;
+  const { applicationId } = req.body;
   createJobModel
-    .deleteMany({ appliers: JobApplication })
+    .updateOne(
+      { _id: applicationId },
+      { $pull: { appliers: JobApplication } },
+      { new: true }
+    )
     .then((result) => {
-      if (!result.deletedCount) {
-        return res.status(404).json({
-          success: false,
-          message: `The applier not found`,
-        });
-      }
       res.status(200).json({
         success: true,
-        message: `Delete The applier`,
+        message: `Applier Deleted`,
         deleted: result,
       });
     })
