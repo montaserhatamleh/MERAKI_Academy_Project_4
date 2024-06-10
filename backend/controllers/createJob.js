@@ -1,3 +1,4 @@
+const { findById } = require("../models/Apply");
 const createJobModel = require("../models/CreateJob");
 
 //to create job
@@ -49,6 +50,12 @@ const getAllJob = (req, res) => {
       });
     });
 };
+// to get all employee
+const getApplierById = (req, res) => {
+  const userId = req.token.userId;
+ 
+};
+const getAllJobsIApplyFor = (req, res) => {};
 // to push applier to Job Application
 const updateJob = (req, res) => {
   const id = req.params.id;
@@ -79,7 +86,7 @@ const updateJob = (req, res) => {
 const deleteJob = (req, res) => {
   const JobApplication = req.params.id;
   createJobModel
-    .deleteMany({ JobApplication })
+    .deleteMany({ appliers: JobApplication })
     .then((result) => {
       if (!result.deletedCount) {
         return res.status(404).json({
@@ -89,7 +96,7 @@ const deleteJob = (req, res) => {
       }
       res.status(200).json({
         success: true,
-        message: `Delete Job Application ${JobApplication}`,
+        message: `Delete The applier`,
         deleted: result,
       });
     })
@@ -101,10 +108,12 @@ const deleteJob = (req, res) => {
       });
     });
 };
-
+// adding Delete all function
 module.exports = {
   createJob,
   getAllJob,
   updateJob,
   deleteJob,
+  getApplierById,
+  getAllJobsIApplyFor,
 };
