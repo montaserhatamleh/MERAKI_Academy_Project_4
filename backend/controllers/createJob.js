@@ -53,7 +53,22 @@ const getAllJob = (req, res) => {
 // to get all employee
 const getApplierById = (req, res) => {
   const userId = req.token.userId;
- 
+  createJobModel;
+  find({ userId: appliers })
+    .then((result) => {
+      res.status(201).json({
+        success: true,
+        message: `Get All Job`,
+        AllJob: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: `Server Error`,
+        err: err.message,
+      });
+    });
 };
 const getAllJobsIApplyFor = (req, res) => {};
 // to push applier to Job Application
