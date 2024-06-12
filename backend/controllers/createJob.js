@@ -3,11 +3,11 @@ const createJobModel = require("../models/CreateJob");
 
 //appliers for CV owner
 const createJob = (req, res) => {
-  const { jonTitle, salaryRange, location, description } = req.body;
+  const { jobTitle, salaryRange, location, description } = req.body;
   const createdBy = req.token.userId;
   console.log(req.token);
   const JobApplication = new createJobModel({
-    jonTitle,
+    jobTitle,
     salaryRange,
     location,
     description,
