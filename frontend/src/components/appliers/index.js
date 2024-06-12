@@ -1,13 +1,22 @@
-import React from 'react'
-import { Navigate, useNavigate } from "react-router-dom";
-function applier() {
-  const Navigate = useNavigate();
-  
-  return (
-    <div>
-        
-    </div>
-  )
+import axios from "axios";
+import React, { useState } from "react";
+
+function Applier() {
+  const [experience, setExperience] = useState("");
+  const [cv, setCv] = useState("");
+  const fetchApply = () => {
+    axios.post("http://localhost:5000/apply/create",{
+        experience,
+        cv,
+    })
+    .then((res)=>{
+        applies(res.data.applies)
+    })
+    .catch((err)=>{
+        console.log(err);
+    })
+  };
+  return <div></div>;
 }
 
-export default applier
+export default Applier;

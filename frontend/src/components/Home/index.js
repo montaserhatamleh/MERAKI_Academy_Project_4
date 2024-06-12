@@ -1,34 +1,41 @@
 import axios from "axios";
-import { React, useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 function Header() {
-  const Navigate = useNavigate();
-  const [jobApplication, setJobApplication] = useState([]);
-  
+  const navigate = useNavigate();
+  const [jobApplications, setJobApplications] = useState([]);
+  const [filteredApplications, setFilteredApplications] = useState([]);
+  const [search, setSearch] = useState("");
 
-  const showingItem = () => {
+  const fetchJobApplications = () => {
     axios
       .get("http://localhost:5000/createJob/")
       .then((res) => {
-        // console.log(res.data.AllJob);
-        setJobApplication(res.data.AllJob);
+        setJobApplications(res.data.AllJob);
+        setFilteredApplications(res.data.AllJob);
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
   useEffect(() => {
-    showingItem();
+    fetchJobApplications();
   }, []);
 
-  const handelAppliers = () => {
-    Navigator 
+  useEffect(() => {
+    const onSearch = jobApplications.filter((elem) => {
+      return elem.jobTitle.toLowerCase().includes(search.toLowerCase());
+    });
+    setFilteredApplications(onSearch);
+  }, [search, jobApplications]);
+
+  const handleAppliers = () => {
+    navigate("/applier");
   };
 
-  const Search = () => {
-
-  };
   return (
     <>
       <div>
@@ -55,36 +62,34 @@ function Header() {
               <div className="post-preview">
                 <div>
                   <input
-                    type="test"
+                    type="text"
                     placeholder="Search"
                     className="SearchBar"
-                  ></input>
+                    onChange={(e) => {
+                      setSearch(e.target.value);
+                    }}
+                  />
                 </div>
-                <a>
-                  <h2 className="post-title">
-                    <div>
-                      {jobApplication.map((elem, i) => {
-                        return (
-                          <div className="post-preview" key={i}>
-                            <a>
-                              <h2>{elem.createdBy}</h2>
-                              <h2 className="post-title">{elem.jobTitle}</h2>
-                            </a>
-                            <p className="post-meta">
-                              salaryRange {elem.salaryRange}
-                            </p>
-                            <h4>{elem.location}</h4>
-                            <h6>{elem.description}</h6>
-                            <h6>{elem.ceratedAt}</h6>
-                            <button className="btn btn-primary text-uppercase">
-                              Apply
-                            </button>
-                          </div>
-                        );
-                      })}
+                <div>
+                  {filteredApplications.map((elem, i) => (
+                    <div className="job-application-container" key={i}>
+                      <a>
+                        <h2>{elem.createdBy}</h2>
+                        <h2 className="post-title">{elem.jobTitle}</h2>
+                      </a>
+                      <p className="post-meta">Salary Range: {elem.salaryRange}</p>
+                      <h4>{elem.location}</h4>
+                      <h6>{elem.description}</h6>
+                      <h6>{elem.createdAt}</h6>
+                      <button
+                        className="btn btn-primary text-uppercase"
+                        onClick={handleAppliers}
+                      >
+                        Apply
+                      </button>
                     </div>
-                  </h2>
-                </a>
+                  ))}
+                </div>
               </div>
               <div className="d-flex justify-content-end mb-4">
                 <a className="btn btn-primary text-uppercase" href="#!">
