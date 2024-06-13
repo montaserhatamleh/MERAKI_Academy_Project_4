@@ -1,14 +1,14 @@
-import React, { useContext } from "react";
-import { useState, createContext } from "react";
+import React, { useContext, useState } from "react";
 import { userContext } from "../../App";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./styles.css"; 
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { setToken } = useContext(userContext);
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleLogin = () => {
     axios
@@ -21,7 +21,7 @@ function Login() {
         const token = res.data.token;
         setToken(token);
         localStorage.setItem("Token", token);
-        Navigate("/");
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);
@@ -29,22 +29,22 @@ function Login() {
   };
 
   return (
-    <div>
+    <div className="loginContainer">
       <input
         type="text"
         placeholder="Email"
-        onChange={(e) => {
-          setEmail(e.target.value);
-        }}
-      ></input>
+        className="loginInput"
+        onChange={(e) => setEmail(e.target.value)}
+      />
       <input
-        type="text"
+        type="password"
         placeholder="Password"
-        onChange={(e) => {
-          setPassword(e.target.value);
-        }}
-      ></input>
-      <button onClick={handleLogin}>Login</button>
+        className="loginInput"
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button className="loginButton" onClick={handleLogin}>
+        Login
+      </button>
     </div>
   );
 }
