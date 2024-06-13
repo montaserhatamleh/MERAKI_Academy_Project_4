@@ -33,6 +33,7 @@ const createJob = (req, res) => {
 const getAllJob = (req, res) => {
   createJobModel
     .find({})
+    .populate("createdBy")
     .then((result) => {
       res.status(201).json({
         success: true,

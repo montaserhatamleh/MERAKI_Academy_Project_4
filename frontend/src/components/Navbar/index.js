@@ -1,43 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./styles.css";
 
 function Nav() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light" id="mainNav">
       <div className="container px-4 px-lg-5">
-        <a className="navbar-brand" href="index.html">
-          Search
+        <a className="navbar-brand">
+          
+          Job Quest
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars"></i>
-                </button>
-        <div className="collapse navbar-collapse" id="navbarResponsive">
+        <button className="navbar-toggler" type="button" onClick={toggleMenu}>
+          Menu
+          <i className="fas fa-bars"></i>
+        </button>
+        <div
+          className={`collapse navbar-collapse ${isMenuOpen ? "show" : ""}`}
+          id="navbarResponsive"
+        >
           <ul className="navbar-nav ms-auto py-4 py-lg-0">
             <li className="nav-item">
-              <a className="nav-link px-lg-3 py-3 py-lg-4">
-                <Link to={"/login"}>login</Link>
-              </a>
+              <Link to={"/login"} className="nav-link px-lg-3 py-3 py-lg-4">
+                Login
+              </Link>
             </li>
 
             <li className="nav-item">
-              <a className="nav-link px-lg-3 py-3 py-lg-4">
-                <Link to={"/register"}>Register</Link>
-              </a>
+              <Link to={"/register"} className="nav-link px-lg-3 py-3 py-lg-4">
+                Register
+              </Link>
             </li>
 
             <li className="nav-item">
-              <a className="nav-link px-lg-3 py-3 py-lg-4">
-                <Link to={"/"}>Home</Link>
-              </a>
+              <Link to={"/"} className="nav-link px-lg-3 py-3 py-lg-4">
+                Home
+              </Link>
             </li>
 
             <li className="nav-item">
-              <a className="nav-link px-lg-3 py-3 py-lg-4">
-                {" "}
-                <Link to={"/footer"}>CONTACT</Link>
-              </a>
+              <Link to={"/footer"} className="nav-link px-lg-3 py-3 py-lg-4">
+                CONTACT
+              </Link>
             </li>
           </ul>
         </div>

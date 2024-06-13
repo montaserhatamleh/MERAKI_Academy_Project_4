@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./styles.css"; // Import your CSS file for Applier styles
+import "./styles.css"; 
 
 function Applier() {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ function Applier() {
         />
         <input
           type="text"
-          placeholder="Link to Your CV"
+          placeholder="Your CV"
           className="applierInput"
           value={cv}
           onChange={(e) => setCv(e.target.value)}

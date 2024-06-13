@@ -1,20 +1,27 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import "./style.css";
 
 function Header() {
   const navigate = useNavigate();
   const [jobApplications, setJobApplications] = useState([]);
   const [filteredApplications, setFilteredApplications] = useState([]);
   const [search, setSearch] = useState("");
+  const [filteredLocation, setFilteredLocation] = useState([]);
+  const [searchLocation, setSearchLocation] = useState("");
 
   const fetchJobApplications = () => {
     axios
       .get("http://localhost:5000/createJob/")
       .then((res) => {
-        setJobApplications(res.data.AllJob);
+        setJobApplications(
+          res.data.AllJob.sort(
+            (a, b) => new Date(b.ceratedAt) - new Date(a.ceratedAt)
+          )
+        );
         setFilteredApplications(res.data.AllJob);
+        setFilteredLocation(res.data.AllJob);
       })
       .catch((err) => {
         console.log(err);
@@ -29,11 +36,16 @@ function Header() {
     const onSearch = jobApplications.filter((elem) => {
       return elem.jobTitle.toLowerCase().includes(search.toLowerCase());
     });
+   
     setFilteredApplications(onSearch);
   }, [search, jobApplications]);
 
   const handleAppliers = () => {
     navigate("/applier");
+  };
+  const filterByLocation = () => {
+    console.log(filterByLocation);
+    setJobApplications(jobApplications.sort((a, b) => a.location - b.location));
   };
 
   return (
@@ -63,7 +75,15 @@ function Header() {
                 <div>
                   <input
                     type="text"
-                    placeholder="Search"
+                    placeholder="Search..."
+                    className="SearchBar"
+                    onChange={(e) => {
+                      setSearch(e.target.value);
+                    }}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Search..."
                     className="SearchBar"
                     onChange={(e) => {
                       setSearch(e.target.value);
@@ -74,13 +94,15 @@ function Header() {
                   {filteredApplications.map((elem, i) => (
                     <div className="job-application-container" key={i}>
                       <a>
-                        <h2>{elem.createdBy}</h2>
+                        <h2>{elem.createdBy.userName}</h2>
                         <h2 className="post-title">{elem.jobTitle}</h2>
                       </a>
-                      <p className="post-meta">Salary Range: {elem.salaryRange}</p>
+                      <p className="post-meta">
+                        Salary Range: {elem.salaryRange}
+                      </p>
                       <h4>{elem.location}</h4>
                       <h6>{elem.description}</h6>
-                      <h6>{elem.createdAt}</h6>
+                      <h6>{elem.ceratedAt}</h6>
                       <button
                         className="btn btn-primary text-uppercase"
                         onClick={handleAppliers}
