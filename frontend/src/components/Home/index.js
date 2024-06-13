@@ -8,20 +8,18 @@ function Header() {
   const [jobApplications, setJobApplications] = useState([]);
   const [filteredApplications, setFilteredApplications] = useState([]);
   const [search, setSearch] = useState("");
-  const [filteredLocation, setFilteredLocation] = useState([]);
-  const [searchLocation, setSearchLocation] = useState("");
 
   const fetchJobApplications = () => {
     axios
       .get("http://localhost:5000/createJob/")
       .then((res) => {
+        // setJobApplications(res.data.AllJob);
         setJobApplications(
           res.data.AllJob.sort(
             (a, b) => new Date(b.ceratedAt) - new Date(a.ceratedAt)
           )
         );
         setFilteredApplications(res.data.AllJob);
-        setFilteredLocation(res.data.AllJob);
       })
       .catch((err) => {
         console.log(err);
@@ -36,7 +34,6 @@ function Header() {
     const onSearch = jobApplications.filter((elem) => {
       return elem.jobTitle.toLowerCase().includes(search.toLowerCase());
     });
-   
     setFilteredApplications(onSearch);
   }, [search, jobApplications]);
 
@@ -45,9 +42,10 @@ function Header() {
   };
   const filterByLocation = () => {
     console.log(filterByLocation);
-    setJobApplications(jobApplications.sort((a, b) => a.location - b.location));
+    setJobApplications(jobApplications.sort((a, b) => 
+      a.location - b.location));
   };
-
+  
   return (
     <>
       <div>
@@ -81,14 +79,17 @@ function Header() {
                       setSearch(e.target.value);
                     }}
                   />
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    className="SearchBar"
-                    onChange={(e) => {
-                      setSearch(e.target.value);
-                    }}
-                  />
+                </div>
+                <div>
+                  <button className="btn btn-primary text-uppercase" onClick={filterByLocation}>
+                    location
+                  </button>
+                  <button className="btn btn-primary text-uppercase">
+                    Date
+                  </button>
+                  <button className="btn btn-primary text-uppercase">
+                    salary Range
+                  </button>
                 </div>
                 <div>
                   {filteredApplications.map((elem, i) => (
