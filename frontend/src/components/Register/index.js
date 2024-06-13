@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./styles.css"; 
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -10,6 +11,7 @@ function Register() {
   const [country, setCountry] = useState("");
   const [gender, setGender] = useState("");
   const [profile, setProfile] = useState("");
+  const navigate = useNavigate();
 
   const handleRegister = () => {
     axios
@@ -24,6 +26,7 @@ function Register() {
       })
       .then((res) => {
         console.log(res.data);
+        navigate("/")
       })
       .catch((err) => {
         console.log(err);
