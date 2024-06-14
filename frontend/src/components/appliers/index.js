@@ -29,9 +29,10 @@ function Applier() {
       )
       .then((res) => {
         console.log(res.data);
+        navigate("/");
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.message);
       });
   };
   const uploadImage = () => {
@@ -64,19 +65,12 @@ function Applier() {
           value={experience}
           onChange={(e) => setExperience(e.target.value)}
         />
-        {/* <input
-          type="text"
-          placeholder="Your CV"
-          className="applierInput"
-          value={cv}
-          onChange={(e) => setCv(e.target.value)}
-        /> */}
         <input
-          className="input"
+          className="applierInput"
           type="file"
           onChange={(e) => setCv(e.target.files[0])}
         ></input>
-        <button className="uploadImage" onClick={uploadImage}>
+        <button className="applierButton" onClick={uploadImage}>
           Upload Image
         </button>
         <button className="applierButton" onClick={handleAppliers}>

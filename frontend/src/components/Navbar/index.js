@@ -12,11 +12,16 @@ function Nav() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light" id="mainNav">
       <div className="container px-4 px-lg-5">
-        <a className="navbar-brand">
-          
+        <Link to="/" className="navbar-brand">
           Job Quest
-        </a>
-        <button className="navbar-toggler" type="button" onClick={toggleMenu}>
+        </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          onClick={toggleMenu}
+          aria-expanded={isMenuOpen}
+          aria-label="Toggle navigation"
+        >
           Menu
           <i className="fas fa-bars"></i>
         </button>
@@ -26,26 +31,28 @@ function Nav() {
         >
           <ul className="navbar-nav ms-auto py-4 py-lg-0">
             <li className="nav-item">
-              <Link to={"/login"} className="nav-link px-lg-3 py-3 py-lg-4">
+              <Link to="/login" className="nav-link px-lg-3 py-3 py-lg-4">
                 Login
               </Link>
             </li>
-
             <li className="nav-item">
-              <Link to={"/register"} className="nav-link px-lg-3 py-3 py-lg-4">
+              <Link to="/register" className="nav-link px-lg-3 py-3 py-lg-4">
                 Register
               </Link>
             </li>
-
             <li className="nav-item">
-              <Link to={"/"} className="nav-link px-lg-3 py-3 py-lg-4">
+              <Link to="/CreatingJobApplications" className="nav-link px-lg-3 py-3 py-lg-4">
+                Job Applications
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/" className="nav-link px-lg-3 py-3 py-lg-4">
                 Home
               </Link>
             </li>
-
             <li className="nav-item">
-              <Link to={"/footer"} className="nav-link px-lg-3 py-3 py-lg-4">
-                CONTACT
+              <Link to="/footer" className="nav-link px-lg-3 py-3 py-lg-4">
+                Contact
               </Link>
             </li>
           </ul>
