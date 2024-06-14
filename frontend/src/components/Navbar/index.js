@@ -46,13 +46,8 @@ function Nav() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/" className="nav-link px-lg-3 py-3 py-lg-4">
-                Home
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/footer" className="nav-link px-lg-3 py-3 py-lg-4">
-                Contact
+              <Link to="/AcceptApplying" className="nav-link px-lg-3 py-3 py-lg-4">
+              Accept Applying
               </Link>
             </li>
           </ul>

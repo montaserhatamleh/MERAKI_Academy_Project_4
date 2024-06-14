@@ -10,6 +10,7 @@ import Home from "./components/Home";
 import Footer from "./components/Footer";
 import Applier from "./components/Appliers";
 import CreatingJobApplications from "./components/jobApplications"
+import AcceptApplying from "./components/AcceptApplying"
 
 export const userContext = createContext();
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/applier" element={<Applier />} />
           <Route path="/CreatingJobApplications" element={<CreatingJobApplications />} />
+          <Route path="/AcceptApplying" element={<AcceptApplying />} />
         </Routes>
         <Footer />
       </userContext.Provider>

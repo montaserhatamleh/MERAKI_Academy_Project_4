@@ -70,6 +70,7 @@ const getApplierById = (req, res) => {
       });
     });
 };
+// git applier by userId  
 const getAllJobsIApplyFor = (req, res) => {
   const applier = req.params.userId;
   findOne({ applier: "appliers" })
@@ -88,7 +89,7 @@ const getAllJobsIApplyFor = (req, res) => {
       });
     });
 };
-//
+// 
 const updateJob = (req, res) => {
   const id = req.params.id;
   createJobModel

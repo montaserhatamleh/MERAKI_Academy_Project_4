@@ -29,7 +29,7 @@ function CreatingJobApplications() {
       .then((res) => {
         console.log(res.data);
 
-        // navigate('/');
+        navigate("/");
       })
       .catch((err) => {
         console.log(err.message);

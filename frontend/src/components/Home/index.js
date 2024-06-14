@@ -41,7 +41,7 @@ function Header() {
     navigate("/applier");
   };
   const filterByLocation = () => {
-    console.log(filterByLocation);
+    // console.log(filterByLocation);
     setJobApplications(jobApplications.sort((a, b) => 
       a.location - b.location));
   };
