@@ -13,6 +13,7 @@ const createApply = (req, res) => {
 
   appliers
     .save()
+    // .populate("createdBy")
     .then((result) => {
       res.status(201).json({
         success: true,

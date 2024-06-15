@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { userContext } from "../../App";
 import "./styles.css";
 
-function Applier() {
+const Applier = () => {
   const { token } = useContext(userContext);
   const navigate = useNavigate();
   const [experience, setExperience] = useState("");
@@ -79,6 +79,6 @@ function Applier() {
       </div>
     </div>
   );
-}
+};
 
 export default Applier;

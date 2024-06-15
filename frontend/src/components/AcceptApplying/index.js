@@ -3,17 +3,34 @@ import axios from "axios";
 import { userContext } from "../../App";
 import "./styles.css";
 
-function AcceptApplying() {
+const AcceptApplying = () => {
+  const { token } = useContext(userContext);
   //get appliers
-  //accept appliers
-  //delete appliers
   const [request, setRequest] = useState([]);
   const fetchRequests = () => {
     axios
       .get("http://localhost:5000/apply/getRequests")
       .then((res) => {
         setRequest(res.data.appliers);
-        
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
+  const deleteApplier = (id) => {
+    // console.log("hi shareef", token);
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    axios
+      .delete(`http://localhost:5000/createJob/deleteApplier/${id}`, {
+        headers,
+      })
+      .then((res) => {
+        // console.log(res.data.id);
+        setRequest(res.data.id);
+        console.log("hi montaser");
       })
       .catch((err) => {
         console.log(err.message);
@@ -46,13 +63,13 @@ function AcceptApplying() {
             {/* Post preview*/}
             <div className="post-preview">
               <div>
-                {request.map((elem,i)=>(
-                    <div key={i} className="applier">
-                        <h3>{elem.createdBy}</h3>
-                        <p>{elem.experience}</p>
-                        <button>onClick</button>
-                        <button>onClick</button>
-                    </div>
+                {request.map((elem, i) => (
+                  <div key={i} className="applier">
+                    <h3>{elem.createdBy}</h3>
+                    <p>{elem.experience}</p>
+                    <button onClick={deleteApplier}>Delete</button>
+                    <button>onClick</button>
+                  </div>
                 ))}
               </div>
             </div>
@@ -61,6 +78,6 @@ function AcceptApplying() {
       </div>
     </div>
   );
-}
+};
 
 export default AcceptApplying;

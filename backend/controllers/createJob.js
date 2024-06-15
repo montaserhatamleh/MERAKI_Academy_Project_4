@@ -89,7 +89,7 @@ const getAllJobsIApplyFor = (req, res) => {
       });
     });
 };
-// 
+// push appliers
 const updateJob = (req, res) => {
   const id = req.params.id;
   createJobModel

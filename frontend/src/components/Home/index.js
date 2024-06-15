@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
 
-function Header() {
+const Header = () => {
   const navigate = useNavigate();
   const [jobApplications, setJobApplications] = useState([]);
   const [filteredApplications, setFilteredApplications] = useState([]);
@@ -42,10 +42,9 @@ function Header() {
   };
   const filterByLocation = () => {
     // console.log(filterByLocation);
-    setJobApplications(jobApplications.sort((a, b) => 
-      a.location - b.location));
+    setJobApplications(jobApplications.sort((a, b) => a.location - b.location));
   };
-  
+
   return (
     <>
       <div>
@@ -81,7 +80,10 @@ function Header() {
                   />
                 </div>
                 <div>
-                  <button className="btn btn-primary text-uppercase" onClick={filterByLocation}>
+                  <button
+                    className="btn btn-primary text-uppercase"
+                    onClick={filterByLocation}
+                  >
                     location
                   </button>
                   <button className="btn btn-primary text-uppercase">
@@ -125,6 +127,6 @@ function Header() {
       </div>
     </>
   );
-}
+};
 
 export default Header;

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./styles.css";
 
-function Nav() {
+const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -41,13 +41,19 @@ function Nav() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/CreatingJobApplications" className="nav-link px-lg-3 py-3 py-lg-4">
+              <Link
+                to="/CreatingJobApplications"
+                className="nav-link px-lg-3 py-3 py-lg-4"
+              >
                 Job Applications
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/AcceptApplying" className="nav-link px-lg-3 py-3 py-lg-4">
-              Accept Applying
+              <Link
+                to="/AcceptApplying"
+                className="nav-link px-lg-3 py-3 py-lg-4"
+              >
+                Accept Applying
               </Link>
             </li>
           </ul>
@@ -55,6 +61,6 @@ function Nav() {
       </div>
     </nav>
   );
-}
+};
 
 export default Nav;

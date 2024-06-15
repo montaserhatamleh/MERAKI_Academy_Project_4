@@ -15,6 +15,6 @@ createJobRouter.get("/", getAllJob);
 createJobRouter.get("/getApplier",authentication,getApplierById)
 createJobRouter.get("/iApplyFor/:id",authentication,getAllJobsIApplyFor )
 createJobRouter.put("/:id",authentication, updateJob);
-createJobRouter.put("/deleteApplier/:id",authentication, deleteJob);
+createJobRouter.delete("/deleteApplier/:id",authentication, deleteJob);
 
 module.exports = createJobRouter;

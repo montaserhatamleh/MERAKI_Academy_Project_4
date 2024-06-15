@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./styles.css"; 
+import "./styles.css";
 import { useNavigate } from "react-router-dom";
 
-function Register() {
+const Register = () => {
   const [email, setEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +26,7 @@ function Register() {
       })
       .then((res) => {
         console.log(res.data);
-        navigate("/")
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);
@@ -76,6 +76,6 @@ function Register() {
       </button>
     </div>
   );
-}
+};
 
 export default Register;
