@@ -10,10 +10,8 @@ const createApply = (req, res) => {
     createdAt,
     createdBy,
   });
-
   appliers
     .save()
-    // .populate("createdBy")
     .then((result) => {
       res.status(201).json({
         success: true,

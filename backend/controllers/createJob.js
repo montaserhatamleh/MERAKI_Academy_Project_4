@@ -1,7 +1,7 @@
 const { findById } = require("../models/Apply");
 const createJobModel = require("../models/CreateJob");
 
-//appliers for CV owner
+//appliers for CV 
 const createJob = (req, res) => {
   const { jobTitle, salaryRange, location, description } = req.body;
   const createdBy = req.token.userId;
@@ -70,7 +70,7 @@ const getApplierById = (req, res) => {
       });
     });
 };
-// git applier by userId  
+// get applier by userId  
 const getAllJobsIApplyFor = (req, res) => {
   const applier = req.params.userId;
   findOne({ applier: "appliers" })
@@ -98,7 +98,6 @@ const updateJob = (req, res) => {
       { $push: { appliers: req.token.userId } },
       { new: true }
     )
-
     .then((result) => {
       res.status(201).json({
         success: true,

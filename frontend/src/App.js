@@ -15,6 +15,7 @@ import AcceptApplying from "./components/AcceptApplying"
 export const userContext = createContext();
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem("Token") || null);
+  
   return (
     <div className="App">
       <userContext.Provider value={{ token, setToken }}>

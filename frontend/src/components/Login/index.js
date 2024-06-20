@@ -2,9 +2,9 @@ import React, { useContext, useState } from "react";
 import { userContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./styles.css"; 
+import "./styles.css";
 
-const Login=()=> {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { setToken } = useContext(userContext);
@@ -29,24 +29,43 @@ const Login=()=> {
   };
 
   return (
-    <div className="loginContainer">
-      <input
-        type="text"
-        placeholder="Email"
-        className="loginInput"
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        className="loginInput"
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button className="loginButton" onClick={handleLogin}>
-        Login
-      </button>
+    <div>
+      <header
+        className="masthead"
+        style={{ backgroundImage: 'url("assets/img/home-bg.jpg")' }}
+      >
+        <div className="container position-relative px-4 px-lg-5">
+          <div className="row gx-4 gx-lg-5 justify-content-center">
+            <div className="col-md-10 col-lg-8 col-xl-7">
+              <div className="site-heading">
+                <h1>Clean Blog</h1>
+                <span className="subheading">Name website</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div className="Container">
+        <div className="loginContainer">
+          <input
+            type="text"
+            placeholder="Email"
+            className="loginInput"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            className="loginInput"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button className="loginButton" onClick={handleLogin}>
+            Login
+          </button>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default Login;

@@ -5,6 +5,7 @@ const JobApplicationReplies = new mongoose.Schema({
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   cv: { type: String, required: true },
   createdAt: { type: Date, default: Date.now, index: true },
+  //img
 });
 
 module.exports = mongoose.model("Apply", JobApplicationReplies);

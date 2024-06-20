@@ -4,6 +4,7 @@ import "./styles.css";
 
 const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(localStorage.token ? true : false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -30,16 +31,30 @@ const Nav = () => {
           id="navbarResponsive"
         >
           <ul className="navbar-nav ms-auto py-4 py-lg-0">
+            {loggedIn ? (
+            
             <li className="nav-item">
+                <Link to="/" className="nav-link px-lg-3 py-3 py-lg-4">
+                  Logout
+                </Link>
+                {onclick=()=>{
+                 setLoggedIn(false)
+                 localStorage.clear();
+                }}
+              </li>
+            ) : (
+              <li className="nav-item">
               <Link to="/login" className="nav-link px-lg-3 py-3 py-lg-4">
                 Login
               </Link>
             </li>
+            )}
             <li className="nav-item">
               <Link to="/register" className="nav-link px-lg-3 py-3 py-lg-4">
                 Register
               </Link>
             </li>
+
             <li className="nav-item">
               <Link
                 to="/CreatingJobApplications"

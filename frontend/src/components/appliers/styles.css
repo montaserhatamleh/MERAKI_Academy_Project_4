@@ -1,19 +1,13 @@
-
 .applierContainer {
-    background-color: #f8f9fa;
-    border: 1px solid #dee2e6;
-    border-radius: 10px;
-    padding: 40px; 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
-    width: 80%;
-    max-width: 600px; 
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  max-width: 800px;
   }
   
   .applierHeader {
@@ -55,8 +49,10 @@
   .applierButton:hover {
     background-color: #0056b3;
   }
-  
-  
   footer {
-    margin-top: 40px; 
+  
+   
+   
   }
+  
+  

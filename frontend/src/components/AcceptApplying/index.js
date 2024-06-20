@@ -17,14 +17,13 @@ const AcceptApplying = () => {
         console.log(err.message);
       });
   };
-
   const deleteApplier = (id) => {
     // console.log("hi shareef", token);
     const headers = {
       Authorization: `Bearer ${token}`,
     };
     axios
-      .delete(`http://localhost:5000/createJob/deleteApplier/${id}`, {
+      .put(`http://localhost:5000/createJob/deleteApplier/${id}`, {
         headers,
       })
       .then((res) => {
@@ -36,7 +35,7 @@ const AcceptApplying = () => {
         console.log(err.message);
       });
   };
-
+  const AcceptApplier = () => {};
   useEffect(() => {
     fetchRequests();
   }, []);
@@ -57,7 +56,7 @@ const AcceptApplying = () => {
           </div>
         </div>
       </header>
-      <div className="container px-4 px-lg-5">
+      <div className="container">
         <div className="row gx-4 gx-lg-5 justify-content-center">
           <div className="col-md-10 col-lg-8 col-xl-7">
             {/* Post preview*/}
