@@ -105,7 +105,7 @@ const Applier = () => {
             <input
               className="applierInput"
               type="file"
-              onChange={(e) => setCv(e.target.value)}
+              onChange={(e) => setCv(e.target.files[0])}
             ></input>
             <button className="applierButton" onClick={handleAppliers}>
               Submit Application

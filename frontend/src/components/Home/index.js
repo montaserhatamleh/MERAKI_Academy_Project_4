@@ -40,6 +40,7 @@ const Header = () => {
   const handleAppliers = () => {
     navigate("/applier");
   };
+
   const filterByLocation = () => {
     // console.log(filterByLocation);
     setJobApplications(jobApplications.sort((a, b) => a.location - b.location));
@@ -86,12 +87,18 @@ const Header = () => {
                   >
                     location
                   </button>
-                  <button className="btn btn-primary text-uppercase">
+                  {/* <input  type="text"
+                    placeholder="Search..."
+                    className="SearchBar"
+                    onChange={(e) => {
+                      setFilteredApplications(e.target.value);
+                    }}></input> */}
+                  {/* <button className="btn btn-primary text-uppercase">
                     Date
                   </button>
                   <button className="btn btn-primary text-uppercase">
                     salary Range
-                  </button>
+                  </button> */}
                 </div>
                 <div>
                   {filteredApplications.map((elem, i) => (

@@ -15,10 +15,11 @@ import AcceptApplying from "./components/AcceptApplying"
 export const userContext = createContext();
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem("Token") || null);
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem("loggedIn")||false);
   
   return (
     <div className="App">
-      <userContext.Provider value={{ token, setToken }}>
+      <userContext.Provider value={{ token, setToken,loggedIn, setLoggedIn }}>
         <Nav />
         <Routes>
           <Route path="/register" element={<Register />} />

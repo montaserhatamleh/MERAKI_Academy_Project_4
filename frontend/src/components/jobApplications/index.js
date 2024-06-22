@@ -41,7 +41,7 @@ const CreatingJobApplications = () => {
     <div>
       <header
         className="masthead"
-        style={{ backgroundImage: 'url("assets/img/home-bg.jpg")' }}
+        style={{ backgroundImage: 'url("assets/img/about-bg.jPg")' }}
       >
         <div className="container position-relative px-4 px-lg-5">
           <div className="row gx-4 gx-lg-5 justify-content-center">

@@ -5,6 +5,7 @@ import "./styles.css";
 
 const AcceptApplying = () => {
   const { token } = useContext(userContext);
+  console.log(token);
   //get appliers
   const [request, setRequest] = useState([]);
   const fetchRequests = () => {
@@ -18,22 +19,23 @@ const AcceptApplying = () => {
       });
   };
   const deleteApplier = (id) => {
+    console.log(id);
     // console.log("hi shareef", token);
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-    axios
-      .put(`http://localhost:5000/createJob/deleteApplier/${id}`, {
-        headers,
-      })
-      .then((res) => {
-        // console.log(res.data.id);
-        setRequest(res.data.id);
-        console.log("hi montaser");
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    // axios
+    //   .put(`http://localhost:5000/createJob/deleteApplier/${id}`,{
+    //     headers:{Authorization: `Bearer ${token}`}
+    //   })
+    //   .then((res) => {
+    //     // console.log(res.data.id);
+    //     setRequest(res.data.id);
+    //     console.log("hi montaser");
+    //   })
+    //   .catch((err) => {
+    //     console.log(err.message);
+    //   });
   };
   const AcceptApplier = () => {};
   useEffect(() => {
@@ -43,7 +45,7 @@ const AcceptApplying = () => {
     <div>
       <header
         className="masthead"
-        style={{ backgroundImage: 'url("assets/img/home-bg.jpg")' }}
+        style={{ backgroundImage: 'url("assets/img/contact-bg.jpg")' }}
       >
         <div className="container position-relative px-4 px-lg-5">
           <div className="row gx-4 gx-lg-5 justify-content-center">
@@ -64,7 +66,7 @@ const AcceptApplying = () => {
               <div>
                 {request.map((elem, i) => (
                   <div key={i} className="applier">
-                    <h3>{elem.createdBy}</h3>
+                    <h3>{elem.createdBy?.userName}</h3>
                     <p>{elem.experience}</p>
                     <button onClick={deleteApplier}>Delete</button>
                     <button>onClick</button>

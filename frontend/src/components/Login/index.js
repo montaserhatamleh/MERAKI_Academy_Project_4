@@ -7,7 +7,7 @@ import "./styles.css";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setToken } = useContext(userContext);
+  const { setToken , setLoggedIn,loggedIn} = useContext(userContext);
   const navigate = useNavigate();
 
   const handleLogin = () => {
@@ -21,6 +21,9 @@ const Login = () => {
         const token = res.data.token;
         setToken(token);
         localStorage.setItem("Token", token);
+        setLoggedIn(true)
+        localStorage.setItem("loggedIn", true);
+
         navigate("/");
       })
       .catch((err) => {
@@ -32,7 +35,7 @@ const Login = () => {
     <div>
       <header
         className="masthead"
-        style={{ backgroundImage: 'url("assets/img/home-bg.jpg")' }}
+        style={{ backgroundImage: 'url("assets/img/post-bg.jpg")' }}
       >
         <div className="container position-relative px-4 px-lg-5">
           <div className="row gx-4 gx-lg-5 justify-content-center">

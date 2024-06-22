@@ -30,7 +30,8 @@ const createApply = (req, res) => {
 
 const getApply = (req, res) => {
   applyModel
-    .find({})
+    .find({}).
+    populate("createdBy")
     .then((result) => {
       res.status(201).json({
         success: true,
