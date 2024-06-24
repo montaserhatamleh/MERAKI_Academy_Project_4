@@ -27,6 +27,7 @@ const Header = () => {
       })
       .catch((err) => {
         console.log(err);
+        console.log("gi");
       });
   };
 
@@ -49,7 +50,6 @@ const Header = () => {
   };
 
   const filterByLocation = () => {
-    // console.log(filterByLocation);
     setJobApplications(jobApplications.sort((a, b) => a.location - b.location));
   };
 

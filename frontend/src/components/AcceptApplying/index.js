@@ -67,7 +67,9 @@ const AcceptApplying = () => {
       })
       .then((res) => {
         console.log("fetch data successfully", res.data.appliers[0].appliers);
-        setRequest(res.data.appliers[0].appliers);
+        setRequest(
+          res.data.appliers[0].appliers.sort()
+        );
       })
       .catch((err) => {
         console.log("fetch jon by id in not working", err);
