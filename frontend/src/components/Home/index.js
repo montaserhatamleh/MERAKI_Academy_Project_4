@@ -1,10 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { userContext } from "../../App";
+import { useContext } from "react";
 import "./style.css";
 
 const Header = () => {
   const navigate = useNavigate();
+  const { user_Id } = useContext(userContext);
+  console.log(user_Id);
   const [jobApplications, setJobApplications] = useState([]);
   const [filteredApplications, setFilteredApplications] = useState([]);
   const [search, setSearch] = useState("");
@@ -39,6 +43,9 @@ const Header = () => {
 
   const handleAppliers = (id) => {
     navigate(`/applier/${id}`);
+  };
+  const handleMyPost = (id) => {
+    navigate(`/AcceptApplying/${id}`);
   };
 
   const filterByLocation = () => {
@@ -112,6 +119,8 @@ const Header = () => {
                       <h4>{elem.location}</h4>
                       <h6>{elem.description}</h6>
                       <h6>{elem.ceratedAt}</h6>
+                      
+
                       <button
                         className="btn btn-primary text-uppercase"
                         onClick={() => {
@@ -120,6 +129,19 @@ const Header = () => {
                       >
                         Apply
                       </button>
+                      {elem.createdBy._id == user_Id ? (
+                        
+                        <button
+                          className="btn btn-primary text-uppercase"
+                          onClick={() => {
+                            handleMyPost(elem._id);
+                          }}
+                        >
+                          my post
+                        </button>
+                      ) : (
+                        ""
+                      )}
                     </div>
                   ))}
                 </div>

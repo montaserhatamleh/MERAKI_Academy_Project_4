@@ -7,7 +7,8 @@ import "./styles.css";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setToken , setLoggedIn,loggedIn} = useContext(userContext);
+  const { setToken, setLoggedIn, loggedIn, setUser_Id } =
+    useContext(userContext);
   const navigate = useNavigate();
 
   const handleLogin = () => {
@@ -21,9 +22,10 @@ const Login = () => {
         const token = res.data.token;
         setToken(token);
         localStorage.setItem("Token", token);
-        setLoggedIn(true)
+        setLoggedIn(true);
         localStorage.setItem("loggedIn", true);
-
+        setUser_Id(res.data.userId)
+        localStorage.setItem("user_Id",res.data.userId)
         navigate("/");
       })
       .catch((err) => {

@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 import { userContext } from "../../App";
 import { Button, Modal } from "antd";
 import "./styles.css";
@@ -9,6 +10,8 @@ import TextArea from "antd/es/input/TextArea";
 const AcceptApplying = () => {
   const { token } = useContext(userContext);
   const [request, setRequest] = useState([]);
+  const { id } = useParams();
+  console.log(id);
   //Pop Up
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
@@ -54,35 +57,30 @@ const AcceptApplying = () => {
         console.log("error sending email", err);
       });
   };
-  //get appliers
-  const fetchRequests = () => {
+  ///get all appliers by id for one job NEW
+  const fetchRequest = () => {
     axios
-      .get("http://localhost:5000/apply/getRequests")
+      .get(`http://localhost:5000/createJob/getJobAppById/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
-        setRequest(res.data.appliers);
+        console.log("fetch data successfully", res.data.appliers[0].appliers);
+        setRequest(res.data.appliers[0].appliers);
       })
       .catch((err) => {
-        console.log(err.message);
+        console.log("fetch jon by id in not working", err);
       });
   };
-  const getJobAppById = (id) => {
-    axios
-      .get(`http://localhost:5000/createJob/getJobAppById/${id}`)
-      .then((res) => {
-        console.log(res.data);
-        //res.data.appliers
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  const deleteApplier = (id) => {
+  // Function for Delete post
+  const deleteApplier = (application) => {
     // console.log(id);
     // console.log("hi shareef", token);
     axios
       .put(
-        `http://localhost:5000/createJob/deleteApplier/${id}`,
-        {},
+        `http://localhost:5000/createJob/deleteApplier/${application}`,
+        {id},
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -98,13 +96,16 @@ const AcceptApplying = () => {
   };
 
   useEffect(() => {
-    fetchRequests();
+    fetchRequest();
   }, []);
   return (
     <div>
       <header
         className="masthead"
-        style={{ backgroundImage: 'url("assets/img/contact-bg.jpg")' }}
+        style={{
+          backgroundImage:
+            'url("https://rare-gallery.com/thumbs/5401576-phone-cable-number-retro-dial-auricular-comiunicacin-telecomunicacin-telfono-digital-telfono-antiguo-mlaga-blanco-y-negro-quinoal-quino-telfono-telfono-clsico-public-domain-images.jpg")',
+        }}
       >
         <div className="container position-relative px-4 px-lg-5">
           <div className="row gx-4 gx-lg-5 justify-content-center">
@@ -126,9 +127,13 @@ const AcceptApplying = () => {
                   <div key={i} className="applier">
                     <h3>{elem.createdBy?.userName}</h3>
                     <iframe
-                      src="http://res.cloudinary.com/dk50zfxtr/image/upload/v1719087621/xjdhvmd1bm2dcvktfswb.jpg"
-                      width={"100%"}
-                      height={"100%"}
+                      src={elem.cv}
+                      style={{
+                        width: "60rem",
+                        height: "50rem",
+                        overflowY: "hidden",
+
+                      }}
                     />
                     <p>{elem.experience}</p>
                     <button
@@ -175,7 +180,9 @@ const AcceptApplying = () => {
                             setMessage(e.target.value);
                           }}
                         ></TextArea>
-                        <button className="modal-submit-button" type="submit">Send Email</button>
+                        <button className="modal-submit-button" type="submit">
+                          Send Email
+                        </button>
                       </form>
                     </Modal>
                   </div>

@@ -83,6 +83,7 @@ const login = (req, res) => {
           success: true,
           message: `Valid login credentials`,
           token: token,
+          userId: result._id,
         });
       } catch (error) {
         throw new Error(error.message);
@@ -96,10 +97,8 @@ const login = (req, res) => {
       });
     });
 };
-  
-  module.exports = {
-    register,
-    login,
-  };
-  
- 
+
+module.exports = {
+  register,
+  login,
+};

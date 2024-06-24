@@ -1,3 +1,4 @@
+const { application } = require("express");
 const { findById } = require("../models/Apply");
 const createJobModel = require("../models/CreateJob");
 
@@ -119,10 +120,11 @@ const updateJob = (req, res) => {
 // to delete my job
 const deleteJob = (req, res) => {
   const JobApplication = req.params.id;
-  const { applicationId } = req.body;
+  const {id} = req.body;
+  console.log(id,"===========applId");
   createJobModel
-    .updateOne(
-      { _id: applicationId },
+    .findByIdAndUpdate(
+       id ,
       { $pull: { appliers: JobApplication } },
       { new: true }
     )
@@ -143,8 +145,9 @@ const deleteJob = (req, res) => {
 };
 const getJobApplicationById = (req, res) => {
   const id = req.params.id;
+  const user = req.token.userId;
   createJobModel
-    .findById({ _id: id })
+    .find({ _id: id, createdBy: user })
     .populate("appliers")
     .then((result) => {
       res.status(201).json({

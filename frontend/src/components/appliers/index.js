@@ -78,30 +78,11 @@ const Applier = () => {
     };
     uploadImage();
   };
-
-  // const push = (id) => {
-  //   const headers = {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   };
-  //   axios
-  //   .put(`http://localhost:5000/createJob/accept/${id}`,{
-  //     headers
-  //   })
-  //   .then((res)=>{
-  //     console.log(res.data);
-  //   })
-  //   .catch((err)=>{
-  //     console.log(err.message);
-  //   })
-  // };
-
   return (
     <div>
       <header
         className="masthead"
-        style={{ backgroundImage: 'url("assets/img/about-bg.jpg")' }}
+        style={{ backgroundImage: 'url("https://guangzhouinsider.info/wp-content/uploads/2024/03/annie-spratt-qyAka7W5uMY-unsplash.jpg")' }}
       >
         <div className="container position-relative px-4 px-lg-5">
           <div className="row gx-4 gx-lg-5 justify-content-center">

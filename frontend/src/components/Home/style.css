@@ -70,6 +70,8 @@
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
   margin-top: auto; 
+  margin: 10px;
+  
 }
 
 .job-application-container button:hover {

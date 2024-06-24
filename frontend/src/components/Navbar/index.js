@@ -6,7 +6,6 @@ const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { token, loggedIn, setLoggedIn } = useContext(userContext);
 
-  console.log(loggedIn);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -72,14 +71,6 @@ const Nav = () => {
                 className="nav-link px-lg-3 py-3 py-lg-4"
               >
                 Job Applications
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                to="/AcceptApplying"
-                className="nav-link px-lg-3 py-3 py-lg-4"
-              >
-                Accept Applying
               </Link>
             </li>
           </ul>
