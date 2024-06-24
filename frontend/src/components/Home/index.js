@@ -49,8 +49,25 @@ const Header = () => {
     navigate(`/AcceptApplying/${id}`);
   };
 
-  const filterByLocation = () => {
-    setJobApplications(jobApplications.sort((a, b) => a.location - b.location));
+  const filterByLocation =  () => {
+
+    // setJobApplications(jobApplications.sort((a, b) => a.salary - b.salary));
+
+    const byLocation = jobApplications.sort(function(a, b) {
+      const nameA = b.location.toUpperCase(); // ignore upper and lowercase
+      const nameB = a.location.toUpperCase(); // ignore upper and lowercase
+      if (nameA > nameB) {
+        return -1;
+      }
+      if (nameA < nameB) {
+        return 1;
+      }
+    
+      // names must be equal
+      return 0;
+    })
+    setJobApplications ([...byLocation])
+    console.log("before",jobApplications);
   };
 
   return (
