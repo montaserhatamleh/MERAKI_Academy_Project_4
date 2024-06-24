@@ -49,7 +49,7 @@ const Nav = () => {
             ) : (
               <>
                 {" "}
-                (
+                
                 <li className="nav-item">
                   <Link to="/login" className="nav-link px-lg-3 py-3 py-lg-4">
                     Login
@@ -63,7 +63,6 @@ const Nav = () => {
                     Register
                   </Link>
                 </li>
-                )
               </>
             )}
 

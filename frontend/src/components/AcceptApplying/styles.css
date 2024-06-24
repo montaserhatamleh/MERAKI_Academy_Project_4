@@ -56,7 +56,7 @@
   
   .applier button {
     margin-right: 10px;
-    padding: 10px 15px;
+    padding: 4px 15px;
     font-size: 1rem;
     color: #fff;
     background-color: #007bff;
@@ -70,3 +70,37 @@
     background-color: #0056b3;
   }
   
+  .modal-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .modal-input {
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .modal-textarea {
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .modal-submit-button {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .modal-submit-button:hover {
+    background-color: #6a88a1;
+  }

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext } from "react";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { userContext } from "../../App";
 import "./styles.css";
 
@@ -11,13 +11,35 @@ const Applier = () => {
   const [experience, setExperience] = useState("");
   const [cv, setCv] = useState("");
   const [url, setUrl] = useState("");
-
+  const { id } = useParams();
+  const handlePushApplier = (appliersId) => {
+    axios
+      .put(
+        `http://localhost:5000/createJob/accept/${id}`,
+        {
+          appliers: appliersId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const handleAppliers = () => {
     const headers = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     };
+    //create applier
     axios
       .post(
         "http://localhost:5000/apply/create",
@@ -28,12 +50,15 @@ const Applier = () => {
         headers
       )
       .then((res) => {
-        console.log(res.data);
-        navigate("/");
+        console.log(res.data.apply._id);
+        //state to save Id
+        handlePushApplier(res.data.apply._id);
+        // navigate("/");
       })
       .catch((err) => {
         console.log(err.message);
       });
+    //push applier
 
     const uploadImage = () => {
       const data = new FormData();
@@ -76,21 +101,20 @@ const Applier = () => {
     <div>
       <header
         className="masthead"
-        style={{ backgroundImage: 'url("assets/img/home-bg.jpg")' }}
+        style={{ backgroundImage: 'url("assets/img/about-bg.jpg")' }}
       >
         <div className="container position-relative px-4 px-lg-5">
           <div className="row gx-4 gx-lg-5 justify-content-center">
             <div className="col-md-10 col-lg-8 col-xl-7">
               <div className="site-heading">
-                <h1>Clean Blog</h1>
-                <span className="subheading">Name website</span>
+                <h1>Dream come true</h1>
               </div>
             </div>
           </div>
         </div>
       </header>
       <div className="Container">
-      <div className="applierContainer">
+        <div className="applierContainer">
           <div className="applierHeader">
             <h1>Apply Now</h1>
           </div>

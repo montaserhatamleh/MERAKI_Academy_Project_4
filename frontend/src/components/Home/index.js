@@ -37,8 +37,8 @@ const Header = () => {
     setFilteredApplications(onSearch);
   }, [search, jobApplications]);
 
-  const handleAppliers = () => {
-    navigate("/applier");
+  const handleAppliers = (id) => {
+    navigate(`/applier/${id}`);
   };
 
   const filterByLocation = () => {
@@ -58,8 +58,7 @@ const Header = () => {
             <div className="row gx-4 gx-lg-5 justify-content-center">
               <div className="col-md-10 col-lg-8 col-xl-7">
                 <div className="site-heading">
-                  <h1>Clean Blog</h1>
-                  <span className="subheading">Name website</span>
+                  <h1>Find Your Dream Job</h1>
                 </div>
               </div>
             </div>
@@ -115,7 +114,9 @@ const Header = () => {
                       <h6>{elem.ceratedAt}</h6>
                       <button
                         className="btn btn-primary text-uppercase"
-                        onClick={handleAppliers}
+                        onClick={() => {
+                          handleAppliers(elem._id);
+                        }}
                       >
                         Apply
                       </button>

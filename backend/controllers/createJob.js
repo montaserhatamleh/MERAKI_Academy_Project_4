@@ -1,7 +1,7 @@
 const { findById } = require("../models/Apply");
 const createJobModel = require("../models/CreateJob");
 
-//appliers for CV 
+//appliers for CV
 const createJob = (req, res) => {
   const { jobTitle, salaryRange, location, description } = req.body;
   const createdBy = req.token.userId;
@@ -70,7 +70,7 @@ const getApplierById = (req, res) => {
       });
     });
 };
-// get applier by userId  
+// get applier by userId
 const getAllJobsIApplyFor = (req, res) => {
   const applier = req.params.userId;
   findOne({ applier: "appliers" })
@@ -92,12 +92,14 @@ const getAllJobsIApplyFor = (req, res) => {
 // push appliers
 const updateJob = (req, res) => {
   const id = req.params.id;
+  const { appliers } = req.body;
   createJobModel
     .findByIdAndUpdate(
       { _id: id },
-      { $push: { appliers: req.token.userId } },
+      { $push: { appliers: appliers } },
       { new: true }
     )
+    .populate("appliers")
     .then((result) => {
       res.status(201).json({
         success: true,
@@ -135,7 +137,27 @@ const deleteJob = (req, res) => {
       res.status(500).json({
         success: false,
         message: `Server Error`,
-        err: err.message,
+        err: err,
+      });
+    });
+};
+const getJobApplicationById = (req, res) => {
+  const id = req.params.id;
+  createJobModel
+    .findById({ _id: id })
+    .populate("appliers")
+    .then((result) => {
+      res.status(201).json({
+        success: true,
+        message: `Applier added`,
+        appliers: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: `Server Error`,
+        err: err,
       });
     });
 };
@@ -147,4 +169,5 @@ module.exports = {
   deleteJob,
   getApplierById,
   getAllJobsIApplyFor,
+  getJobApplicationById,
 };
