@@ -11,7 +11,7 @@ const AcceptApplying = () => {
   const { token } = useContext(userContext);
   const [request, setRequest] = useState([]);
   const { id } = useParams();
-  console.log(id);
+  // console.log(id);
   //Pop Up
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
@@ -67,9 +67,7 @@ const AcceptApplying = () => {
       })
       .then((res) => {
         console.log("fetch data successfully", res.data.appliers[0].appliers);
-        setRequest(
-          res.data.appliers[0].appliers.sort()
-        );
+        setRequest(res.data.appliers[0].appliers.sort());
       })
       .catch((err) => {
         console.log("fetch jon by id in not working", err);
@@ -82,15 +80,25 @@ const AcceptApplying = () => {
     axios
       .put(
         `http://localhost:5000/createJob/deleteApplier/${application}`,
-        {id},
+        { id },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       )
       .then((res) => {
-        console.log(res);
+        // console.log(res.data.deleted);
+        // console.log(request);
+        const indexDeleted = request.findIndex(
+          (x) => x._id === res.data.deleted._id
+        );
+        request.splice(indexDeleted, 1);
+        setRequest([...request]);
+        // console.log(indexDeleted);
+        // console.log(request.length);
+        // console.log(request.length);
+        // console.log(request);
         // setRequest(res.data.id);
-        console.log("hi montaser");
+        // console.log("hi montaser");
       })
       .catch((err) => {
         console.log(err);
@@ -134,7 +142,6 @@ const AcceptApplying = () => {
                         width: "60rem",
                         height: "50rem",
                         overflowY: "hidden",
-
                       }}
                     />
                     <p>{elem.experience}</p>

@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import { userContext } from "../../App";
 import { useNavigate } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import "./styles.css";
 
@@ -10,7 +12,6 @@ const Login = () => {
   const { setToken, setLoggedIn, loggedIn, setUser_Id } =
     useContext(userContext);
   const navigate = useNavigate();
-
   const handleLogin = () => {
     axios
       .post("http://localhost:5000/user/login", {
@@ -24,8 +25,8 @@ const Login = () => {
         localStorage.setItem("Token", token);
         setLoggedIn(true);
         localStorage.setItem("loggedIn", true);
-        setUser_Id(res.data.userId)
-        localStorage.setItem("user_Id",res.data.userId)
+        setUser_Id(res.data.userId);
+        localStorage.setItem("user_Id", res.data.userId);
         navigate("/");
       })
       .catch((err) => {
@@ -67,6 +68,40 @@ const Login = () => {
           <button className="loginButton" onClick={handleLogin}>
             Login
           </button>
+          <span className="google-button">
+            {" "}
+            
+            <GoogleLogin
+              onSuccess={(credentialResponse) => {
+                const decoded = jwtDecode(credentialResponse?.credential);
+                console.log(decoded);
+                axios
+                .post("http://localhost:5000/user/login", {
+                  email:decoded.email,
+                  password:"1234",
+                })
+                .then((res) => {
+                  console.log(res.data);
+                  const token = res.data.token;
+                  setToken(token);
+                  localStorage.setItem("Token", token);
+                  setLoggedIn(true);
+                  localStorage.setItem("loggedIn", true);
+                  setUser_Id(res.data.userId);
+                  localStorage.setItem("user_Id", res.data.userId);
+                  navigate("/");
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+                navigate("/");
+              }}
+              onError={() => {
+                console.log("Login Failed");
+              }}
+            />
+            
+          </span>
         </div>
       </div>
     </div>

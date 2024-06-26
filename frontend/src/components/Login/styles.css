@@ -69,3 +69,6 @@ body, html {
 .loginButton:hover {
   background-color: #0056b3;
 }
+.google-button{
+  margin: 20px;
+}

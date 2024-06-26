@@ -3,12 +3,14 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { userContext } from "../../App";
 import { useContext } from "react";
+
 import "./style.css";
 
 const Header = () => {
   const navigate = useNavigate();
   const { user_Id } = useContext(userContext);
-  console.log(user_Id);
+  const { token } = useContext(userContext);
+  // console.log(user_Id);
   const [jobApplications, setJobApplications] = useState([]);
   const [filteredApplications, setFilteredApplications] = useState([]);
   const [search, setSearch] = useState("");
@@ -17,7 +19,6 @@ const Header = () => {
     axios
       .get("http://localhost:5000/createJob/")
       .then((res) => {
-        // setJobApplications(res.data.AllJob);
         setJobApplications(
           res.data.AllJob.sort(
             (a, b) => new Date(b.ceratedAt) - new Date(a.ceratedAt)
@@ -29,6 +30,27 @@ const Header = () => {
         console.log(err);
         console.log("gi");
       });
+  };
+
+  //Function for Delete post
+  const DeleteJobApplications = (id) => {
+    axios
+      .delete(`http://localhost:5000/createJob/DeleteById/Post/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        console.log("hi from delete job app ");
+        // const indexDeleted = jobApplications.findIndex(
+        //   (x) => x._id === res.data.deleted._id
+        // );
+        // jobApplications.splice(indexDeleted, 1);
+        const filteredJobs = jobApplications.filter((e, i) => {
+          return e._id !== id;
+        });
+        console.log(filteredJobs);
+        setJobApplications([...filteredJobs]);
+      })
+      .catch((err) => {});
   };
 
   useEffect(() => {
@@ -49,25 +71,23 @@ const Header = () => {
     navigate(`/AcceptApplying/${id}`);
   };
 
-  const filterByLocation =  () => {
-
+  const filterByLocation = () => {
     // setJobApplications(jobApplications.sort((a, b) => a.salary - b.salary));
 
-    const byLocation = jobApplications.sort(function(a, b) {
-      const nameA = b.location.toUpperCase(); // ignore upper and lowercase
-      const nameB = a.location.toUpperCase(); // ignore upper and lowercase
+    const byLocation = jobApplications.sort(function (a, b) {
+      const nameA = b.location.toUpperCase();
+      const nameB = a.location.toUpperCase();
       if (nameA > nameB) {
         return -1;
       }
       if (nameA < nameB) {
         return 1;
       }
-    
-      // names must be equal
+
       return 0;
-    })
-    setJobApplications ([...byLocation])
-    console.log("before",jobApplications);
+    });
+    setJobApplications([...byLocation]);
+    console.log("before", jobApplications);
   };
 
   return (
@@ -136,7 +156,6 @@ const Header = () => {
                       <h4>{elem.location}</h4>
                       <h6>{elem.description}</h6>
                       <h6>{elem.ceratedAt}</h6>
-                      
 
                       <button
                         className="btn btn-primary text-uppercase"
@@ -147,15 +166,24 @@ const Header = () => {
                         Apply
                       </button>
                       {elem.createdBy._id == user_Id ? (
-                        
-                        <button
-                          className="btn btn-primary text-uppercase"
-                          onClick={() => {
-                            handleMyPost(elem._id);
-                          }}
-                        >
-                          my post
-                        </button>
+                        <>
+                          <button
+                            className="btn btn-primary text-uppercase"
+                            onClick={() => {
+                              handleMyPost(elem._id);
+                            }}
+                          >
+                            my post
+                          </button>
+                          <button
+                            className="btn btn-primary text-uppercase"
+                            onClick={() => {
+                              DeleteJobApplications(elem._id);
+                            }}
+                          >
+                            Delete
+                          </button>
+                        </>
                       ) : (
                         ""
                       )}

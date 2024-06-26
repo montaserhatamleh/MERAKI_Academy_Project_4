@@ -4,6 +4,7 @@ const createJobModel = require("../models/CreateJob");
 
 //appliers for CV
 const createJob = (req, res) => {
+  const date = new Date("<YYYY-mm-dd>");
   const { jobTitle, salaryRange, location, description } = req.body;
   const createdBy = req.token.userId;
   console.log(req.token);
@@ -120,11 +121,11 @@ const updateJob = (req, res) => {
 // to delete my job
 const deleteJob = (req, res) => {
   const JobApplication = req.params.id;
-  const {id} = req.body;
-  console.log(id,"===========applId");
+  const { id } = req.body;
+  console.log(id, "===========applId");
   createJobModel
     .findByIdAndUpdate(
-       id ,
+      id,
       { $pull: { appliers: JobApplication } },
       { new: true }
     )
@@ -164,7 +165,26 @@ const getJobApplicationById = (req, res) => {
       });
     });
 };
-// adding Delete all function
+//Delete by Id function
+const DeleteById = (req, res) => {
+  const id = req.params.id;
+  createJobModel
+    .findByIdAndDelete(id)
+    .then((result) => {
+      res.status(201).json({
+        success: true,
+        message: `job Application Deleted`,
+        appliers: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: `Server Error`,
+        err: err,
+      });
+    });
+};
 module.exports = {
   createJob,
   getAllJob,
@@ -173,4 +193,5 @@ module.exports = {
   getApplierById,
   getAllJobsIApplyFor,
   getJobApplicationById,
+  DeleteById,
 };
