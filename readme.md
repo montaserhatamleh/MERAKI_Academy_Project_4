@@ -92,9 +92,9 @@ Ex.
 Your trello board link
 <a href='https://trello.com/b/WfdryNhx/project-4'>Trello</a>
 
-## Data Flow <a name = "#data_flow"></a>
+<!-- ## Data Flow <a name = "#data_flow"></a> -->
 
-<img width=200px height=200px src="../Screenshot 2024-06-28 231501.png" alt="Diagram"></a>
+<!-- <img width=200px height=200px src="" alt="Diagram"></a> -->
 
 ## ⚠️ Guided By <a name = "guided_by"></a>
 
