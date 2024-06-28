@@ -23,7 +23,6 @@ const AcceptApplying = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  //pop Up
 
   // state for send Email using Emailjs
   const [name, setName] = useState("");
@@ -139,8 +138,9 @@ const AcceptApplying = () => {
                     <iframe
                       src={elem.cv}
                       style={{
-                        width: "60rem",
-                        height: "50rem",
+                        width: "100%",
+                        height: "500px",
+                        border: "none",
                         overflowY: "hidden",
                       }}
                     />

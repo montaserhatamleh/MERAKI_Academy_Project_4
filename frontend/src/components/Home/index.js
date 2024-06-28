@@ -28,7 +28,6 @@ const Header = () => {
       })
       .catch((err) => {
         console.log(err);
-        console.log("gi");
       });
   };
 
@@ -40,10 +39,6 @@ const Header = () => {
       })
       .then((res) => {
         console.log("hi from delete job app ");
-        // const indexDeleted = jobApplications.findIndex(
-        //   (x) => x._id === res.data.deleted._id
-        // );
-        // jobApplications.splice(indexDeleted, 1);
         const filteredJobs = jobApplications.filter((e, i) => {
           return e._id !== id;
         });
@@ -130,18 +125,6 @@ const Header = () => {
                   >
                     location
                   </button>
-                  {/* <input  type="text"
-                    placeholder="Search..."
-                    className="SearchBar"
-                    onChange={(e) => {
-                      setFilteredApplications(e.target.value);
-                    }}></input> */}
-                  {/* <button className="btn btn-primary text-uppercase">
-                    Date
-                  </button>
-                  <button className="btn btn-primary text-uppercase">
-                    salary Range
-                  </button> */}
                 </div>
                 <div>
                   {filteredApplications.map((elem, i) => (
@@ -157,14 +140,6 @@ const Header = () => {
                       <h6>{elem.description}</h6>
                       <h6>{elem.ceratedAt}</h6>
 
-                      <button
-                        className="btn btn-primary text-uppercase"
-                        onClick={() => {
-                          handleAppliers(elem._id);
-                        }}
-                      >
-                        Apply
-                      </button>
                       {elem.createdBy._id == user_Id ? (
                         <>
                           <button
@@ -173,7 +148,7 @@ const Header = () => {
                               handleMyPost(elem._id);
                             }}
                           >
-                            my post
+                            show request
                           </button>
                           <button
                             className="btn btn-primary text-uppercase"
@@ -185,7 +160,14 @@ const Header = () => {
                           </button>
                         </>
                       ) : (
-                        ""
+                        <button
+                          className="btn btn-primary text-uppercase"
+                          onClick={() => {
+                            handleAppliers(elem._id);
+                          }}
+                        >
+                          Apply
+                        </button>
                       )}
                     </div>
                   ))}
