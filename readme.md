@@ -94,7 +94,7 @@ Your trello board link
 
 ## Data Flow <a name = "#data_flow"></a>
 
-<img width=200px height=200px src="https://app.moqups.com/unsaved/59024bc0/edit/page/a3c891d99" alt="Diagram"></a>
+<img width=200px height=200px src="../Screenshot 2024-06-28 231501.png" alt="Diagram"></a>
 
 ## ⚠️ Guided By <a name = "guided_by"></a>
 
