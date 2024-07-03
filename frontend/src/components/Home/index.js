@@ -27,7 +27,8 @@ const Header = () => {
         setFilteredApplications(res.data.AllJob);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err);  
+        
       });
   };
 
